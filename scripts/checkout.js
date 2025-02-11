@@ -3,6 +3,11 @@ import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 // when importing modules "./" -  means current folder
 
+const today = dayjs();
+//add 7 days
+const deliveryDate = today.add(7, 'days');
+console.log(deliveryDate.format('dddd, MMMM D'));
+
 let cartSummaryHTML = '';
 
 cart.forEach((cartItem) => {
