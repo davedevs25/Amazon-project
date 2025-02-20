@@ -1,5 +1,5 @@
 // when importing modules "./" -  means current folder
-import {cart,removeFromCart, updateDeliveryOption} from '../../data/cart.js';
+import {cart,removeFromCart, updateDeliveryOption,getCartQuantity} from '../../data/cart.js';
 import {products, getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
@@ -15,9 +15,9 @@ const deliveryDate = today.add(7, 'days');
 console.log(deliveryDate.format('dddd, MMMM D'));
 */
 export function renderOrderSummary() { 
-
+  
   let cartSummaryHTML = '';
-
+  
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
 
@@ -123,12 +123,14 @@ export function renderOrderSummary() {
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
       //remove the container
       container.remove();
-
+      renderOrderSummary();
       renderPaymentSummary()
     });
 
   });
-
+  
+  const cartQuantity = getCartQuantity();
+  document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity=== 1 ? `${cartQuantity} item` :`${cartQuantity} items` }`;
 
   document.querySelectorAll('.js-delivery-option').forEach((element) => {
     element.addEventListener('click', () => {
@@ -138,5 +140,7 @@ export function renderOrderSummary() {
       renderPaymentSummary();
     });
   });
+  
+  
 }
 
