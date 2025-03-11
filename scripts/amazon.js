@@ -1,9 +1,12 @@
 import {cart,addToCart,getCartQuantity} from '../data/cart.js';
-import {products} from '../data/products.js';
+import {products,loadProducts} from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 import '../data/cart-class.js';
 
+loadProducts(renderAmazon);
+
 export function renderAmazon(){
+
 updateCartQuantity();
 let productsHTML ='';
 
@@ -97,4 +100,3 @@ addedMessage.classList.add('added-to-cart-visible');
 });
 
 }
-renderAmazon();
